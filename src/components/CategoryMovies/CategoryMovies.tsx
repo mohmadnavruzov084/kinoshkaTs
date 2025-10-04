@@ -3,11 +3,15 @@ import { useParams } from "react-router-dom";
 import Card from "../Card/Card";
 import styles from "./CategoryMovies.module.scss";
 
+interface Movie {
+  id: number;
+  name: string;
+}
 const CategoryMovies = () => {
   const { genre } = useParams();
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!genre) return;

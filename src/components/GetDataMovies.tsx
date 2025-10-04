@@ -1,21 +1,35 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Card from "../../Card/Card";
-function SearchResults() {
-  const { query } = useParams();
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
+interface Movie{
+      id: number;
+  name: string;
+  poster?: {
+    url?: string;
+  };
+  rating?: {
+    kp?: number;
+  };
+    
+  }
+
+
+
+function GetDataMovies({ children }) {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  
   useEffect(() => {
-    if (!query) return;
-
-    const fetchSearchResults = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const url = `   ${import.meta.env.VITE_API_URL}?name=${query}&limit=12`;
+      
+        const url = `${
+          import.meta.env.VITE_API_URL}
+        }?page=1&limit=12&selectFields=name&selectFields=description&selectFields=poster&selectFields=rating&selectFields=year`;
 
         console.log("Fetching from:", url);
 
@@ -40,15 +54,10 @@ function SearchResults() {
       }
     };
 
-    fetchSearchResults();
-  }, [query]);
+    fetchData();
+  }, []);
 
-  return (
-    <div>
-      <h2>Результаты поиска : {query}</h2>
-      <Card loading={loading} movies={movies} error={error} />
-    </div>
-  );
+  return children({ movies, loading, error });
 }
 
-export default SearchResults;
+export default GetDataMovies;
