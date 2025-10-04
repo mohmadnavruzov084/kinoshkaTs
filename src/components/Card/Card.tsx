@@ -1,4 +1,4 @@
-import LoadSvg from "../../assets/LoadSvg.svg";
+import LoadSvg from "../../assets/LoadSvg.svg?react";
 import { SyntheticEvent } from "react";
 import styles from "./card.module.scss";
 

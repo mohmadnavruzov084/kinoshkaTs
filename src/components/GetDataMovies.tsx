@@ -27,9 +27,7 @@ function GetDataMovies({ children }) {
         setError(null);
 
       
-        const url = `${
-          import.meta.env.VITE_API_URL}
-        }?page=1&limit=12&selectFields=name&selectFields=description&selectFields=poster&selectFields=rating&selectFields=year`;
+        const url = `${import.meta.env.VITE_API_URL}?page=1&limit=12&selectFields=name&selectFields=description&selectFields=poster&selectFields=rating&selectFields=year`;
 
         console.log("Fetching from:", url);
 
