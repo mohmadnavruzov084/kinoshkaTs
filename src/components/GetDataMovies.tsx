@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 
-interface Movie{
-      id: number;
+interface Movie {
+  id: number;
   name: string;
   poster?: {
     url?: string;
@@ -9,24 +9,27 @@ interface Movie{
   rating?: {
     kp?: number;
   };
-    
-  }
+}
 
+interface GetDataMoviesProps {
+  children: (data: {
+    movies: Movie[],
+    loading: boolean,
+    error: string | null
+  }) => ReactNode
+}
 
-
-function GetDataMovies({ children }) {
+function GetDataMovies({ children }: GetDataMoviesProps) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-      
         const url = `${import.meta.env.VITE_API_URL}?page=1&limit=12&selectFields=name&selectFields=description&selectFields=poster&selectFields=rating&selectFields=year`;
 
         console.log("Fetching from:", url);
