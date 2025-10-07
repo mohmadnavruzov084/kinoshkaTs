@@ -7,21 +7,46 @@ import { About } from "./components/pages/About";
 import SearchResults from "./components/pages/SearchResult/SearchResults";
 import "./main.scss";
 
+const ROUTES_CONFIG = [
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/about",
+    element: <About />
+  },
+  {
+    path: "/categories",
+    element: <Categories/>
+  },
+  {
+    path: "/category/:genre",
+    element: <CategoryMovies />
+  },
+  {
+    path: "/search/:query",
+    element: <SearchResults />
+  },
+]
+
+
 function App() {
   return (
-    <BrowserRouter>
-      <div className="wrapper">
-        <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/category/:genre" element={<CategoryMovies />} />
-          <Route path="/search/:query" element={<SearchResults />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <div className= "wrapper" >
+    <Header />
+
+    <Routes>
+  {
+    ROUTES_CONFIG.map((route) => (
+      <Route key= { route.path } path = { route.path } element = { route.element } />
+))
+  }
+
+  </Routes>
+    </div>
+    
   );
 }
 

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import styles from "./Categories.module.scss";
 
 const Categories = () => {
-  const [genres, setGenres] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [genres, setGenres] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     // Mock данные жанров
-    const mockGenres = [
+    const mockGenres:string[] = [
       "комедия",
       "драма",
       "боевик",
