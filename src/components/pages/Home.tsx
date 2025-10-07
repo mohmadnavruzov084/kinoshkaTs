@@ -3,12 +3,12 @@ import Card from "../Card/Card";
 const Home = () => {
   return (
     <>
-      <GetDataMovies>
-        {({ movies, loading, error }) => (
-          <Card loading={loading} movies={movies} error={error} />
+    <GetDataMovies>
+    {({ movies, loading, error }) => (
+      <Card loading= { loading } movies = { movies } error = { error } />
         )}
-      </GetDataMovies>
-    </>
+</GetDataMovies>
+  </>
   );
 };
 

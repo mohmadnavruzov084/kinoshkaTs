@@ -53,9 +53,9 @@ function SearchResults() {
 
   return (
     <div>
-      <h2>Результаты поиска : {query}</h2>
-      <Card loading={loading} movies={movies} error={error} />
-    </div>
+    <h2>Результаты поиска: { query } </h2>
+      < Card loading = { loading } movies = { movies } error = { error } />
+        </div>
   );
 }
 

@@ -1,7 +1,7 @@
 const Meta = () => {
   return (
     <>
-      <title>MovieHub</title>
+    <title>MovieHub </title>
     </>
   );
 };

@@ -48,10 +48,10 @@ const CategoryMovies = () => {
   }, [genre]);
 
   return (
-    <div className={styles.categoryMovies}>
-      <h1>Фильмы в жанре: {genre}</h1>
-      {error && <p>{error}</p>}
-      <Card loading={loading} movies={movies} error={error} />
+    <div className= { styles.categoryMovies } >
+    <h1>Фильмы в жанре: { genre } </h1>
+  { error && <p>{ error } </p> }
+  <Card loading={ loading } movies = { movies } error = { error } />
     </div>
   );
 };
