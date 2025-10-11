@@ -1,3 +1,4 @@
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { useState, useEffect, ReactNode } from "react";
 
 interface Movie {
@@ -19,46 +20,46 @@ interface GetDataMoviesProps {
   }) => ReactNode
 }
 
+const queryClient = new QueryClient();
+
 function GetDataMovies({ children }: GetDataMoviesProps) {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, error, isError } = useQuery({
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+    queryKey: ['movies'],
+    queryFn: async () => {
 
-        const url = `${import.meta.env.VITE_API_URL}?page=1&limit=12&selectFields=name&selectFields=description&selectFields=poster&selectFields=rating&selectFields=year`;
+      const url = `${import.meta.env.VITE_API_URL}?page=1&limit=12&selectFields=name&selectFields=description&selectFields=poster&selectFields=rating&selectFields=year`;
 
-        console.log("Fetching from:", url);
+      console.log("Fetching from:", url);
+      const response = await fetch(url, {
+        headers: { "X-API-KEY": import.meta.env.VITE_API_KEY },
+      });
 
-        const response = await fetch(url, {
-          headers: { "X-API-KEY": import.meta.env.VITE_API_KEY },
-        });
+      const data = await response.json();
 
-        const data = await response.json();
-        console.log("Response data:", data);
-
-        if (data?.docs?.length > 0) {
-          setMovies(data.docs);
-        } else {
-          setError("Фильмы не найдены. Попробуйте другой запрос.");
-          setMovies([]);
-        }
-      } catch (err) {
-        console.error("Fetch error:", err);
-        setError("Что-то пошло не так... Попробуйте позже😥");
-      } finally {
-        setLoading(false);
+      if (data.error) {
+        throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
       }
-    };
 
-    fetchData();
-  }, []);
 
-  return children({ movies, loading, error });
+      if (!data.docs || data.docs.length === 0) {
+        throw new Error("Фильмы не найдены");
+      }
+
+
+      return data
+    }
+
+  });
+
+
+  return children({
+    movies: data?.docs || [],
+    loading: isLoading,
+    error: isError ? "Упс, что-то пошло не так 😥" : null
+  });
+
+
 }
 
 export default GetDataMovies;

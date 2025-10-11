@@ -1,6 +1,6 @@
 import { useState, ChangeEvent } from "react";
 
-import { Link, Meta, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 
@@ -12,24 +12,24 @@ function Header() {
   };
 
   return (
-    <>
-    <Meta/>
-    < header className = { styles.header } >
-      <div className="container" >
-        <div className={ styles["header-box"] }>
-          <div className={ styles["header__logo"] }>
-            <a href="#" > MovieHub </a>
-              </div>
-              < nav className = { styles["header__nav"]} >
-                <ul className={ styles["header__nav-list"] }>
-                  <li className={ styles["header__nav-item"] }>
-                    <Link to="" > Главная </Link>
-                      </li>
-                      < li className = { styles["header__nav-item"]} >
-                        <Link to="/categories" > Категории </Link>
-                          </li>
-                          < li className = { styles["header__nav-item"]} >
-                            <input
+<>
+
+    <header className = { styles.header } >
+    <div className="container" >
+      <div className={ styles["header-box"] }>
+        <div className={ styles["header__logo"] }>
+          <a href="#" > MovieHub </a>
+            </div>
+            < nav className = { styles["header__nav"]} >
+              <ul className={ styles["header__nav-list"] }>
+                <li className={ styles["header__nav-item"] }>
+                  <Link to="" > Главная </Link>
+                    </li>
+                    < li className = { styles["header__nav-item"]} >
+                      <Link to="/categories" > Категории </Link>
+                        </li>
+                        < li className = { styles["header__nav-item"]} >
+                          <input
                     className={ styles["header__search"] }
   type = "text"
   onChange = {(e: ChangeEvent<HTMLInputElement>) =>
